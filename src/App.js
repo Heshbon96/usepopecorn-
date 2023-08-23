@@ -76,11 +76,13 @@ export default function App() {
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
+
   //
   useEffect(
     function () {
       //browserAPI, controller
       const controller = new AbortController();
+      ///
       async function fetchMovies() {
         try {
           setIsLoading(true);
@@ -352,7 +354,17 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onCloseMovie();
   }
   ///
-
+  //keypress effect
+  useEffect(
+    function () {
+      document.addEventListener("keydown", function (e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+        }
+      });
+    },
+    [onCloseMovie]
+  );
   ///
   useEffect(
     function () {
